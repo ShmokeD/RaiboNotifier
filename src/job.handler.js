@@ -1,3 +1,4 @@
+import { sendMail } from "./dispatcher/email.dispatcher.js";
 import { Job } from "./models/notif.model.js";
 
 const enqueueJob = async (req, res) => {
@@ -29,8 +30,6 @@ async function processQueue()
 
         if (job) {
             dispatch(job);
-        } else {
-            console.log("Found No Job");
         }
     }, 500);
 }
@@ -38,7 +37,9 @@ async function processQueue()
 async function dispatch(job)
 {
     //TODO: Implement this
+
     console.log("Processing Job", job.message);
+    sendMail(job.recievers, job.message);
     job.status = 'sent';
     job.updatedAt = new Date();
     await job.save();
