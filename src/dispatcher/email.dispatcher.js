@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-async function sendMail(receivers, message) {
+async function sendMail(receivers, task) {
 
   try {
     // Fetch users whose _id is in the receivers array
@@ -19,6 +19,9 @@ async function sendMail(receivers, message) {
     if (emails.length === 0) {
         throw new Error('No valid email addresses found for the provided user IDs.');
     }
+
+    const email = new Email
+
 
     const info = await transporter.sendMail({
       from: 'shmokedev@gmail.com', // sender address

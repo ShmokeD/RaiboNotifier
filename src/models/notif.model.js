@@ -1,4 +1,5 @@
 import mongoose , {Schema} from "mongoose";
+import {jobType} from '../constants.js';
 
 const jobSchema = new Schema({
     recievers: [
@@ -8,10 +9,12 @@ const jobSchema = new Schema({
             required: true
         }
     ],
-    message: {
+    task: {
         type: String,
-        required: true,
-    },
+        enum: jobType,
+        required: true
+    }
+    ,
     channel:{
         type: String,
         enum: ['email', 'sms', 'push'],

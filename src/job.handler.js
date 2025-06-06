@@ -1,11 +1,11 @@
-import { sendMail } from "./dispatcher/email.dispatcher.js";
 import { Job } from "./models/notif.model.js";
+import { verifyUserEmail} from './dispatcher/verify.email.dispatcher.js';
 
 const enqueueJob = async (req, res) => {
     try{
-        const { recievers , message, channel } = req.body;
+        const { recievers , task, channel } = req.body;
 
-        const job = new Job({recievers, channel,message});
+        const job = new Job({recievers, channel, task});
 
         await job.save();
         res.status(201).json({id: job._id});
@@ -36,13 +36,67 @@ async function processQueue()
 
 async function dispatch(job)
 {
-    //TODO: Implement this
+    console.log("Processing Job", job.task);
 
-    console.log("Processing Job", job.message);
-    sendMail(job.recievers, job.message);
-    job.status = 'sent';
-    job.updatedAt = new Date();
-    await job.save();
+    switch (job.task) {
+case 'verify-user-email':
+    await verifyUserEmail(job);
+        break;
+case 'user-welcome':
+    // TODO: handle user-welcome
+    break;
+case 'order-placed':
+    // TODO: handle order-placed
+    break;
+case 'out-for-delivery':
+    // TODO: handle out-for-delivery
+    break;
+case 'delivered':
+    // TODO: handle delivered
+    break;
+case 'verify-company-email':
+    // TODO: handle verify-company-email
+    break;
+case 'kyc-start':
+    // TODO: handle kyc-start
+    break;
+case 'kyc-complete':
+    // TODO: handle kyc-complete
+    break;
+case 'product-added':
+    // TODO: handle product-added
+    break;
+case 'product-modified':
+    // TODO: handle product-modified
+    break;
+case 'product-purchased-by-user':
+    // TODO: handle product-purchased-by-user
+    break;
+case 'product-pickedup':
+    // TODO: handle product-pickedup
+    break;
+case 'product-delivered':
+    // TODO: handle product-delivered
+    break;
+case 'customer-review':
+    // TODO: handle customer-review
+    break;
+case 'product-dispute':
+    // TODO: handle product-dispute
+    break;
+
+        default:
+
+            console.error("Unknown job type:", job.task);
+            break;
+    }
+
+
+
+    // sendMail(job.recievers, job.task);
+    // job.status = 'sent';
+    // job.updatedAt = new Date();
+    // await job.save();
 }
 
 export  { enqueueJob, processQueue };
