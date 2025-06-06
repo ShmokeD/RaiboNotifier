@@ -1,6 +1,6 @@
 import { Job } from "./models/notif.model.js";
 import { verifyUserEmail} from './dispatcher/verify.email.dispatcher.js';
-
+import { welcomeUserEmail } from './dispatcher/welcome.email.dispatcher.js';
 const enqueueJob = async (req, res) => {
     try{
         const { recievers , task, channel } = req.body;
@@ -43,7 +43,7 @@ case 'verify-user-email':
     await verifyUserEmail(job);
         break;
 case 'user-welcome':
-    // TODO: handle user-welcome
+    await welcomeUserEmail(job);
     break;
 case 'order-placed':
     // TODO: handle order-placed
