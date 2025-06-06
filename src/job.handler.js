@@ -2,6 +2,7 @@ import { Job } from "./models/notif.model.js";
 import { verifyUserEmail} from './dispatcher/verify.email.dispatcher.js';
 import { welcomeUserEmail } from './dispatcher/welcome.email.dispatcher.js';
 import { orderPlacedEmail , outForDeliveryEmail , orderDeliveredEmail } from './dispatcher/order.email.dispatcher.js';
+import { kycCompleteEmail, kycStartedEmail} from './dispatcher/kyc.email.dispatcher.js';
 
 const enqueueJob = async (req, res) => {
     try{
@@ -43,12 +44,12 @@ async function dispatch(job)
     switch (job.task) {
 case 'verify-user-email':
     await verifyUserEmail(job);
-        break;
+    break;
 case 'user-welcome':
     await welcomeUserEmail(job);
     break;
 case 'order-placed':
-        await orderPlacedEmail(job);
+    await orderPlacedEmail(job);
     break;
 case 'out-for-delivery':
     await outForDeliveryEmail(job);
@@ -57,34 +58,35 @@ case 'delivered':
     await orderDeliveredEmail(job);
     break;
 case 'verify-company-email':
-    // TODO: handle verify-company-email
+    await verifyCompanyEmail(job);
     break;
 case 'kyc-start':
-    // TODO: handle kyc-start
+    await kycStartedEmail(job);
     break;
 case 'kyc-complete':
-    // TODO: handle kyc-complete
+    await kycCompleteEmail(job);
     break;
 case 'product-added':
-    // TODO: handle product-added
+    await productAddedEmail(job);
     break;
 case 'product-modified':
-    // TODO: handle product-modified
+    await productModifiedEmail(job);
     break;
 case 'product-purchased-by-user':
-    // TODO: handle product-purchased-by-user
+    await productPurchasedByUserEmail(job);
     break;
 case 'product-pickedup':
-    // TODO: handle product-pickedup
+    await productPickedUpEmail(job);
     break;
 case 'product-delivered':
-    // TODO: handle product-delivered
+    await productDeliveredEmail(job);
     break;
 case 'customer-review':
-    // TODO: handle customer-review
+    await customerReviewEmail(job);
     break;
 case 'product-dispute':
-    // TODO: handle product-dispute
+    await productDisputeEmail(job);
+    break;
     break;
 
         default:
