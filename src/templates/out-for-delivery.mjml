@@ -1,0 +1,18 @@
+<mjml>
+    <mj-body>
+        <mj-section>
+            <mj-column>
+                <mj-text font-size="20px" font-weight="bold">
+                    Your Order Is Out For Delivery!.
+                </mj-text>
+                <mj-text>
+                    Hi {{name}},<br/>
+                    Your Order for {{product}} has been placed.
+                </mj-text>
+                <mj-button href="{{track_link}}" background-color="#346DB7" color="#ffffff">
+                    Track Order
+                </mj-button>
+            </mj-column>
+        </mj-section>
+    </mj-body>
+</mjml>
