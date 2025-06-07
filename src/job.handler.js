@@ -1,14 +1,12 @@
 import { Job } from "./models/notif.model.js";
-import { verifyUserEmail} from './dispatcher/verify.email.dispatcher.js';
-import { welcomeUserEmail } from './dispatcher/welcome.email.dispatcher.js';
-import { orderPlacedEmail , outForDeliveryEmail , orderDeliveredEmail } from './dispatcher/order.email.dispatcher.js';
-import { kycCompleteEmail, kycStartedEmail} from './dispatcher/kyc.email.dispatcher.js';
+
+import {sendMerchantMail, sendUserMail} from "./dispatcher/email.dispatcher.js";
 
 const enqueueJob = async (req, res) => {
     try{
-        const { recievers , task, channel } = req.body;
+        const { recievers , task, channel , values} = req.body;
 
-        const job = new Job({recievers, channel, task});
+        const job = new Job({recievers, channel, task, values});
 
         await job.save();
         res.status(201).json({id: job._id});
@@ -29,7 +27,7 @@ async function processQueue()
             { status: "pending" },
             { status: "processing", updatedAt: new Date() },
             { sort: { createdAt: 1 }, new: true }
-        );
+        ).lean();
 
         if (job) {
             dispatch(job);
@@ -43,50 +41,51 @@ async function dispatch(job)
 
     switch (job.task) {
 case 'verify-user-email':
-    await verifyUserEmail(job);
+    await sendUserMail(job, "Verify Your Email");
     break;
 case 'user-welcome':
-    await welcomeUserEmail(job);
+    await sendUserMail(job, "Welcome to Raibo!!");
     break;
 case 'order-placed':
-    await orderPlacedEmail(job);
+    await sendUserMail(job, "Your Order Has Been Placed!!");
     break;
 case 'out-for-delivery':
-    await outForDeliveryEmail(job);
+    await sendUserMail(job, "Your Order is Out for Delivery!!");
     break;
 case 'delivered':
-    await orderDeliveredEmail(job);
+    await sendUserMail(job, "Your Order Has Been Delivered!!");
     break;
+
+    //Seller
 case 'verify-company-email':
-    await verifyCompanyEmail(job);
+    await sendMerchantMail(job, "Verify Your Company Email");
     break;
 case 'kyc-start':
-    await kycStartedEmail(job);
+    await sendMerchantMail(job, 'Your KYC form has been submitted');
     break;
 case 'kyc-complete':
-    await kycCompleteEmail(job);
+    await sendMerchantMail(job, 'Your KYC form has been approved');
     break;
 case 'product-added':
-    await productAddedEmail(job);
+    await sendMerchantMail(job, 'Your Product has been added');
     break;
 case 'product-modified':
-    await productModifiedEmail(job);
+    await sendMerchantMail(job, 'Product has been modified');
     break;
 case 'product-purchased-by-user':
-    await productPurchasedByUserEmail(job);
+    await sendMerchantMail(job, 'Product has been purchased by user');
     break;
 case 'product-pickedup':
-    await productPickedUpEmail(job);
+    await sendMerchantMail(job, 'Product has been picked up');
     break;
 case 'product-delivered':
-    await productDeliveredEmail(job);
+    await sendMerchantMail(job, 'Product has been delivered');
     break;
 case 'customer-review':
-    await customerReviewEmail(job);
+    await sendMerchantMail(job, 'Your Product has a new review');
     break;
 case 'product-dispute':
-    await productDisputeEmail(job);
-    break;
+    await sendMerchantMail(job, 'A dispute has been raised for your product');
     break;
 
         default:

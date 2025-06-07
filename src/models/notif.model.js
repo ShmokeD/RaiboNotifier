@@ -13,8 +13,7 @@ const jobSchema = new Schema({
         type: String,
         enum: jobType,
         required: true
-    }
-    ,
+    },
     channel:{
         type: String,
         enum: ['email', 'sms', 'push'],
@@ -25,6 +24,11 @@ const jobSchema = new Schema({
         enum: ['pending', 'processing','sent', 'failed'],
         default: 'pending'
     },
+    values: {
+        type: Map,
+        of: String,
+        default: {}
+    },
     createdAt: {
         type: Date,
         default: Date.now
@@ -33,8 +37,6 @@ const jobSchema = new Schema({
         type: Date,
         default: Date.now
     }
-
 });
-
 
 export const Job = mongoose.model('Jobs', jobSchema);

@@ -1,0 +1,37 @@
+<mjml>
+    <mj-head>
+        <mj-title>Product Delivered Notification</mj-title>
+        <mj-preview>Your product has been delivered</mj-preview>
+        <mj-style>
+            .header { font-size: 24px; font-weight: bold; }
+            .content { font-size: 16px; }
+        </mj-style>
+    </mj-head>
+    <mj-body background-color="#f4f4f4">
+        <mj-section>
+            <mj-column>
+                <mj-image width="100px" src="https://yourcompany.com/logo.png" alt="Company Logo" />
+                <mj-text css-class="header" align="center" color="#333333">
+                    Product Delivered!
+                </mj-text>
+                <mj-divider border-color="#cccccc" />
+                <mj-text css-class="content" color="#555555">
+                    Hello,<br/><br/>
+                    We are pleased to inform you that your product has been successfully delivered to the customer.<br/><br/>
+                    <b>Order Details:</b><br/>
+                    Product: <span style="color:#222;">{{product_name}}</span><br/>
+                    Order ID: <span style="color:#222;">{{order_id}}</span><br/>
+                    Delivery Date: <span style="color:#222;">{{delivery_date}}</span><br/><br/>
+                    Thank you for partnering with us.<br/>
+                    If you have any questions, please contact our support team.
+                </mj-text>
+                <mj-button href="https://yourcompany.com/merchant/orders" background-color="#007bff" color="#ffffff">
+                    View Order Details
+                </mj-button>
+                <mj-text font-size="12px" color="#999999" align="center">
+                    &copy; {{year}} Your Company. All rights reserved.
+                </mj-text>
+            </mj-column>
+        </mj-section>
+    </mj-body>
+</mjml>

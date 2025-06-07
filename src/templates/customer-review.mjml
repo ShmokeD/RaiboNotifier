@@ -1,0 +1,41 @@
+<mjml>
+    <mj-head>
+        <mj-title>New Product Review Notification</mj-title>
+        <mj-preview>Your product has a new customer review!</mj-preview>
+        <mj-style>
+            .review-box {
+                border: 1px solid #e0e0e0;
+                border-radius: 6px;
+                padding: 16px;
+                background-color: #fafafa;
+            }
+        </mj-style>
+    </mj-head>
+    <mj-body background-color="#f5f7fa">
+        <mj-section>
+            <mj-column>
+                <mj-image width="100px" src="{{merchant_logo_url}}" alt="Merchant Logo" />
+                <mj-text font-size="20px" font-weight="bold" color="#333333">
+                    Hello {{merchant_name}},
+                </mj-text>
+                <mj-text font-size="16px" color="#555555">
+                    One of your customers has just reviewed <strong>{{product_name}}</strong>.
+                </mj-text>
+                <mj-divider border-color="#cccccc" />
+                <mj-text font-size="16px" color="#333333" css-class="review-box">
+                    <strong>Customer:</strong> {{customer_name}}<br/>
+                    <strong>Rating:</strong> {{review_rating}}/5<br/>
+                    <strong>Review:</strong><br/>
+                    "{{review_text}}"
+                </mj-text>
+                <mj-button background-color="#007bff" color="#ffffff" href="{{product_url}}">
+                    View Product & Reviews
+                </mj-button>
+                <mj-text font-size="14px" color="#999999" padding-top="24px">
+                    Thank you for being a valued merchant.<br/>
+                    — The {{platform_name}} Team
+                </mj-text>
+            </mj-column>
+        </mj-section>
+    </mj-body>
+</mjml>

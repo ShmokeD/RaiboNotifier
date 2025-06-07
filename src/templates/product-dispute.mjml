@@ -1,0 +1,58 @@
+<mjml>
+    <mj-head>
+        <mj-title>Product Dispute Notification</mj-title>
+        <mj-preview>Notification regarding a product dispute</mj-preview>
+        <mj-style>
+            .header-text { font-size: 22px; font-weight: bold; }
+            .body-text { font-size: 16px; }
+            .footer-text { font-size: 12px; color: #888888; }
+        </mj-style>
+    </mj-head>
+    <mj-body background-color="#f4f4f4">
+        <mj-section background-color="#ffffff" padding="20px">
+            <mj-column>
+                <mj-image src="https://yourdomain.com/logo.png" alt="Company Logo" width="120px" />
+                <mj-text css-class="header-text" align="center" color="#333333">
+                    Product Dispute Alert
+                </mj-text>
+                <mj-divider border-color="#cccccc" />
+                <mj-text css-class="body-text" color="#555555">
+                    Hello,
+                    <br/><br/>
+                    We have received a dispute regarding your product. Please review the details below and take the necessary actions.
+                </mj-text>
+                <mj-table>
+                    <tr>
+                        <td><strong>Product Name:</strong></td>
+                        <td>{{productName}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Order ID:</strong></td>
+                        <td>{{orderId}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dispute Reason:</strong></td>
+                        <td>{{disputeReason}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Date:</strong></td>
+                        <td>{{disputeDate}}</td>
+                    </tr>
+                </mj-table>
+                <mj-button href="{{disputeLink}}" background-color="#007bff" color="#ffffff" font-size="16px" padding="20px 0">
+                    View Dispute Details
+                </mj-button>
+                <mj-text css-class="body-text" color="#555555">
+                    If you have any questions, please contact our support team.
+                </mj-text>
+            </mj-column>
+        </mj-section>
+        <mj-section>
+            <mj-column>
+                <mj-text css-class="footer-text" align="center">
+                    &copy; {{year}} Your Company. All rights reserved.
+                </mj-text>
+            </mj-column>
+        </mj-section>
+    </mj-body>
+</mjml>

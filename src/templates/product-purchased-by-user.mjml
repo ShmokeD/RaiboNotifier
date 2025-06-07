@@ -1,0 +1,63 @@
+<mjml>
+    <mj-head>
+        <mj-title>New Product Purchase Notification</mj-title>
+        <mj-preview>A user has purchased a product from your store.</mj-preview>
+        <mj-style>
+            .header-text { font-size: 22px; font-weight: bold; }
+            .details-table { width: 100%; border-collapse: collapse; }
+            .details-table td { padding: 8px 0; }
+        </mj-style>
+    </mj-head>
+    <mj-body background-color="#f4f4f4">
+        <mj-section background-color="#ffffff" padding="20px">
+            <mj-column>
+                <mj-image width="100px" src="https://cdn.example.com/logo.png" alt="Company Logo" />
+                <mj-text css-class="header-text" align="center">
+                    New Product Purchased!
+                </mj-text>
+                <mj-divider border-color="#cccccc" />
+                <mj-text>
+                    Hello <strong>{{merchantName}}</strong>,
+                </mj-text>
+                <mj-text>
+                    A user has just purchased <strong>{{productName}}</strong> from your store.
+                </mj-text>
+                <mj-table css-class="details-table">
+                    <tr>
+                        <td>Order Number:</td>
+                        <td><strong>{{orderNumber}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Purchase Date:</td>
+                        <td><strong>{{purchaseDate}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Amount Paid:</td>
+                        <td><strong>{{amountPaid}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Buyer Name:</td>
+                        <td><strong>{{userName}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Buyer Email:</td>
+                        <td><strong>{{userEmail}}</strong></td>
+                    </tr>
+                </mj-table>
+                <mj-button background-color="#28a745" color="#ffffff" href="{{orderLink}}">
+                    View Order Details
+                </mj-button>
+                <mj-text font-size="14px" color="#888888" align="center" padding-top="20px">
+                    Please process this order promptly. If you have any questions, contact support.
+                </mj-text>
+            </mj-column>
+        </mj-section>
+        <mj-section background-color="#f4f4f4" padding="10px">
+            <mj-column>
+                <mj-text font-size="12px" color="#aaaaaa" align="center">
+                    &copy; {{year}} Your Company. All rights reserved.
+                </mj-text>
+            </mj-column>
+        </mj-section>
+    </mj-body>
+</mjml>

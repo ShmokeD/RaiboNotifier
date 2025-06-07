@@ -7,7 +7,6 @@ async function renderTemplate(templateName, variables) {
   const templatePath = path.join(process.cwd(), 'src/templates', `${templateName}.mjml`);
   let mjmlTemplate = fs.readFileSync(templatePath, 'utf8');
 
-
   for (const key in variables) {
     mjmlTemplate = mjmlTemplate.replace(new RegExp(`{{${key}}}`, 'g'), variables[key]);
   }

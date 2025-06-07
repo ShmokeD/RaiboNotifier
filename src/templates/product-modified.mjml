@@ -1,0 +1,42 @@
+<mjml>
+    <mj-body background-color="#f4f4f4">
+        <mj-section>
+            <mj-column>
+                <mj-text font-size="24px" color="#333333" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" align="center" font-weight="bold">
+                    Product Modified Notification
+                </mj-text>
+                <mj-divider border-color="#cccccc" />
+                <mj-text font-size="16px" color="#555555" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+                    Hello,
+                    <br/><br/>
+                    This is to inform you that a product has been modified in the system. Please review the changes below:
+                </mj-text>
+                <mj-table>
+                    <tr>
+                        <th align="left">Field</th>
+                        <th align="left">Old Value</th>
+                        <th align="left">New Value</th>
+                    </tr>
+                    <tr>
+                        <td>Product Name</td>
+                        <td>{{oldProductName}}</td>
+                        <td>{{newProductName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Price</td>
+                        <td>{{oldPrice}}</td>
+                        <td>{{newPrice}}</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>{{oldDescription}}</td>
+                        <td>{{newDescription}}</td>
+                    </tr>
+                </mj-table>
+                <mj-text font-size="14px" color="#888888" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" align="center">
+                    If you have any questions, please contact support.
+                </mj-text>
+            </mj-column>
+        </mj-section>
+    </mj-body>
+</mjml>

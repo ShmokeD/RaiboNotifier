@@ -1,0 +1,28 @@
+<mjml>
+    <mj-head>
+        <mj-title>Product Picked Up Notification</mj-title>
+        <mj-preview>Your product has been picked up!</mj-preview>
+        <mj-style>
+            .main-title { font-size: 24px; font-weight: bold; }
+            .content { font-size: 16px; }
+        </mj-style>
+    </mj-head>
+    <mj-body background-color="#f4f4f4">
+        <mj-section>
+            <mj-column>
+                <mj-image width="100px" src="https://via.placeholder.com/100x100.png?text=Pickup" alt="Pickup"/>
+                <mj-text css-class="main-title">Your Product Has Been Picked Up!</mj-text>
+                <mj-text css-class="content">
+                    Hello,<br/><br/>
+                    We are pleased to inform you that your product has been successfully picked up.<br/>
+                    Thank you for using our service.<br/><br/>
+                    Best regards,<br/>
+                    The RaiboNotifier Team
+                </mj-text>
+                <mj-button href="https://yourwebsite.com" background-color="#007bff" color="#ffffff">
+                    View Details
+                </mj-button>
+            </mj-column>
+        </mj-section>
+    </mj-body>
+</mjml>
