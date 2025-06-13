@@ -31,6 +31,16 @@ const userSchema = new Schema({
             message: "Email is required if Google ID is not provided.",
           },
     },
+
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
+    verificationToken: {
+        type: String,
+        default: null,
+        expires: 3000
+    },
     password: {
         type: String,
 
