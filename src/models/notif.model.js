@@ -1,5 +1,5 @@
 import mongoose , {Schema} from "mongoose";
-import {jobType} from '../constants.js';
+import {jobType} from '../config/constants.js';
 
 const jobSchema = new Schema({
     recievers: [
