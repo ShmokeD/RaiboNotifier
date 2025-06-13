@@ -1,8 +1,8 @@
 import { Job } from "./models/notif.model.js";
-
+import {asyncHandler} from './utils/asyncHandler.js';
 import {sendMerchantMail, sendUserMail} from "./dispatcher/email.dispatcher.js";
 
-const enqueueJob = async (req, res) => {
+const enqueueJob = asyncHandler(async (req, res) => {
     try{
         const { recievers , task, channel , values} = req.body;
 
@@ -16,24 +16,36 @@ const enqueueJob = async (req, res) => {
         res.status(500).json({error: error.message});
     }
 
-};
+});
 
 
-async function processQueue()
+const processMessage = asyncHandler(async (req,res) => //Processes Message sent by pub/sub
 {
-    console.log("Started Queue Processing");
-    setInterval(async () => {
-        const job = await Job.findOneAndUpdate(
-            { status: "pending" },
+    try{
+        const data = req.body.message.data; //pubsub data encoded in base64
+        const decodedData = Buffer.from(data,"base64").toString(); //decode the data into json
+        const dataObject = JSON.parse(decodedData); //convert into json dataObject
+
+        const {jobId} = dataObject;
+
+         const job = await Job.findByIdAndUpdate( jobId,
             { status: "processing", updatedAt: new Date() },
             { sort: { createdAt: 1 }, new: true }
-        ).lean();
+        );
 
-        if (job) {
+        if(job)
+        {
             dispatch(job);
         }
-    }, 500);
-}
+        res.status(200).send();
+    }
+
+    catch(error)
+    {
+        console.error("ERROR Processing publish:", error);
+        res.status(500).send();
+    }
+});
 
 async function dispatch(job)
 {
@@ -102,4 +114,4 @@ case 'product-dispute':
     // await job.save();
 }
 
-export  { enqueueJob, processQueue };
+export  { enqueueJob , processMessage};

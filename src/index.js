@@ -2,6 +2,11 @@ import './config/env.config.js'; //ensure config is loaded first
 import app from './app.js';
 import connectDB from './db/index.js';
 
+
+app.get('/', (req,res) => {
+    res.status(200).send('Notifier Service');
+})
+
 connectDB()
 .then(() => {
     app.listen(process.env.PORT || 8000, () => {
