@@ -11,6 +11,9 @@ async function renderTemplate(templateName, variables) {
 
   const compiledTemplate = Handlebars.compile(mjmlTemplate);
   const variablesObj = variables.toObject({ flattenMaps: true });
+
+  //Always show first name if used
+  variablesObj['name'] = variablesObj['name']?.split(' ')[0] || '';
   const compiledMjml = compiledTemplate(variablesObj);
 
 

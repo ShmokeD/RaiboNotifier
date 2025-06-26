@@ -1,6 +1,8 @@
 import { Job } from "./models/notif.model.js";
 import {asyncHandler} from './utils/asyncHandler.js';
 import {sendMerchantMail, sendUserMail} from "./dispatcher/email.dispatcher.js";
+import { User } from "./models/user.model.js";
+import { renderTemplate } from './utils/renderer.js';
 
 const enqueueJob = asyncHandler(async (req, res) => {
     try{
@@ -16,6 +18,40 @@ const enqueueJob = asyncHandler(async (req, res) => {
         res.status(500).json({error: error.message});
     }
 
+});
+
+const publishTestMessage= asyncHandler(async (req, res) => {
+
+
+        const {send, jobId} = req.query;
+
+        const job = await Job.findById(jobId);
+
+
+        const { recievers, values } = job;
+        const user = await User.findById(recievers[0],'email fullname');
+        const email = user.email;
+        const html = await renderTemplate(job.task, values);
+
+        if(!user)
+        {
+            return res.status(404).json({error: "User not found"});
+        }
+        if(send==='true')
+        {
+        const info = await transporter.sendMail({
+            from: process.env.EMAIL_FROM || 'shmokedev@gmail.com',
+            to: email,
+            subject: subject,
+            html
+        });
+        res.status(200).json({message: "Email sent successfully", info});
+    }
+
+    else {
+        res.setHeader('Content-Type', 'text/html');
+        res.status(200).send(html);
+    }
 });
 
 
@@ -37,6 +73,8 @@ const processMessage = asyncHandler(async (req,res) => //Processes Message sent 
         {
             dispatch(job);
         }
+
+        dispatchAllJobs();
         res.status(200).send();
     }
 
@@ -47,11 +85,28 @@ const processMessage = asyncHandler(async (req,res) => //Processes Message sent 
     }
 });
 
+async function dispatchAllJobs()
+{
+    Job.find({ status: "pending" })
+        .sort({ createdAt: -1 })
+        .then(jobs => {
+            jobs.forEach(job => {
+                dispatch(job);
+            });
+        })
+        .catch(error => {
+            console.error("Error dispatching all jobs:", error);
+        });
+}
+
 async function dispatch(job)
 {
     console.log("Processing Job", job.task);
 
     switch (job.task) {
+case 'reset-password':
+    await sendUserMail(job, "Reset Your Password");
+    break;
 case 'verify-user-email':
     await sendUserMail(job, "Verify Your Email");
     break;
@@ -114,4 +169,4 @@ case 'product-dispute':
     // await job.save();
 }
 
-export  { enqueueJob , processMessage};
+export  { enqueueJob , processMessage, publishTestMessage};

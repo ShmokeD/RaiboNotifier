@@ -1,5 +1,6 @@
 const jobType = [
     //User
+    'reset-password',
     'verify-user-email',
     'user-welcome',
     'order-placed',

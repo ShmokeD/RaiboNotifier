@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node -r dotenv/config src/index.js",
-    "dev": "nodemon -r dotenv/config src/index.js"
+    "dev": "NODE_ENV=development nodemon -r dotenv/config src/index.js"
   },
   "repository": {
     "type": "git",
